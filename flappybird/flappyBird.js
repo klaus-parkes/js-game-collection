@@ -42,6 +42,8 @@ document.addEventListener("keydown",moveUp);
 
 document.addEventListener("click",moveUp2);
 
+document.addEventListener("touchstart",moveUp2);
+
 function moveUp(){
     bY -= 25;
     fly.play();
