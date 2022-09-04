@@ -72,6 +72,7 @@ function drawArc(x, y, r, color){
 
 // listening to the mouse
 canvas.addEventListener("mousemove", getMousePos);
+canvas.addEventListener("touchmove", getMousePos);
 
 function getMousePos(evt){
     let rect = canvas.getBoundingClientRect();
