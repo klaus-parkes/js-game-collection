@@ -18,13 +18,13 @@ pipeSouth.src = "images/pipeSouth.png";
 
 // some variables
 
-var gap = 85;
+var gap = 80;
 var constant;
 
 var bX = 10;
 var bY = 150;
 
-var gravity = 1.5;
+var gravity = 1.6;
 
 var score = 0;
 
@@ -40,11 +40,17 @@ scor.src = "sounds/score.mp3";
 
 document.addEventListener("keydown",moveUp);
 
+document.addEventListener("click",moveUp2);
+
 function moveUp(){
     bY -= 25;
     fly.play();
 }
 
+function moveUp2(){
+    bY -= 30;
+    fly.play();
+}
 // pipe coordinates
 
 var pipe = [];
