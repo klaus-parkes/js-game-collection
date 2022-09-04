@@ -158,7 +158,9 @@ window.onload = function() {
         // Add mouse events
         canvas.addEventListener("mousemove", onMouseMove);
         canvas.addEventListener("mousedown", onMouseDown);
-        
+        canvas.addEventListener("touchend", onMouseDown);
+        canvas.addEventListener("touchmove", onMouseMove);
+
         // Initialize the two-dimensional tile array
         for (var i=0; i<level.columns; i++) {
             level.tiles[i] = [];
