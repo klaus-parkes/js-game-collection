@@ -128,7 +128,77 @@ function init(player, OPPONENT){
         }
 
     });
+    canvas.addEventListener("touchend", function(event){
+        
+        // IF IT's A GAME OVER? EXIT
+        if(GAME_OVER) return;
 
+        // X & Y position of mouse click relative to the canvas
+        let X = event.clientX - canvas.getBoundingClientRect().x;
+        let Y = event.clientY - canvas.getBoundingClientRect().y;
+
+        // WE CALCULATE i & j of the clicked SPACE
+        let i = Math.floor(Y/SPACE_SIZE);
+        let j = Math.floor(X/SPACE_SIZE);
+
+        // Get the id of the space the player clicked on
+        let id = board[i][j];
+
+        // Prevent the player to play the same space twice
+        if(gameData[id]) return;
+
+        // store the player's move to gameData
+        gameData[id] = currentPlayer;
+        
+        // draw the move on board
+        drawOnBoard(currentPlayer, i, j);
+
+        // Check if the play wins
+        if(isWinner(gameData, currentPlayer)){
+            showGameOver(currentPlayer);
+            GAME_OVER = true;
+            return;
+        }
+
+        // check if it's a tie game
+        if(isTie(gameData)){
+            showGameOver("tie");
+            GAME_OVER = true;
+            return;
+        }
+
+        if( OPPONENT == "computer"){
+            // get id of space using minimax algorithm
+            let id = minimax( gameData, player.computer ).id;
+
+            // store the player's move to gameData
+            gameData[id] = player.computer;
+            
+            // get i and j of space
+            let space = getIJ(id);
+
+            // draw the move on board
+            drawOnBoard(player.computer, space.i, space.j);
+
+            // Check if the play wins
+            if(isWinner(gameData, player.computer)){
+                showGameOver(player.computer);
+                GAME_OVER = true;
+                return;
+            }
+
+            // check if it's a tie game
+            if(isTie(gameData)){
+                showGameOver("tie");
+                GAME_OVER = true;
+                return;
+            }
+        }else{
+            // GIVE TURN TO THE OTHER PLAYER
+            currentPlayer = currentPlayer == player.man ? player.friend : player.man;
+        }
+
+    });
     // MINIMAX
     function minimax(gameData, PLAYER){
         // BASE
